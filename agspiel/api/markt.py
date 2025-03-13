@@ -11,6 +11,16 @@ class Markt:
         self._web_data = web_data
         self._markt_data = lambda: self._api_data().get("allgemein")
 
+    def to_dict(self) -> dict:
+        """
+        Returns a dict of all properties to dump self as json
+        """
+        return {
+            prop: getattr(self, prop)
+            for prop in dir(self)
+            if isinstance(getattr(type(self), prop, None), property)
+        }
+
     @property
     def ags(self) -> int:
         return int(self._markt_data().get("ags"))

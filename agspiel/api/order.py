@@ -12,6 +12,16 @@ class Order:
         self.systembank: bool = systembank
         self.datum: datetime = datum
 
+    def to_dict(self) -> dict:
+        """
+        Returns a dict of all properties to dump self as json
+        """
+        return {
+            prop: getattr(self, prop)
+            for prop in dir(self)
+            if isinstance(getattr(type(self), prop, None), property)
+        }
+
     @property
     def typ(self) -> str:
         return self._typ

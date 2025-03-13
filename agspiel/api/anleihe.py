@@ -9,6 +9,16 @@ class _Superclass:
         self.zins: float = zins
         self.laufzeit: int = laufzeit
 
+    def to_dict(self) -> dict:
+        """
+        Returns a dict of all properties to dump self as json
+        """
+        return {
+            prop: getattr(self, prop)
+            for prop in dir(self)
+            if isinstance(getattr(type(self), prop, None), property)
+        }
+
     @property
     def betrag(self) -> int:
         return self._betrag

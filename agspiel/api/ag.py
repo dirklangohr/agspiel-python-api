@@ -22,6 +22,16 @@ class Ag:
         self._chronik_data: Data = chronik_data
         self._ag_data = lambda: self._api_data().get("ags").get(str(self.wkn))
 
+    def to_dict(self) -> dict:
+        """
+        Returns a dict of all properties to dump self as json
+        """
+        return {
+            prop: getattr(self, prop)
+            for prop in dir(self)
+            if isinstance(getattr(type(self), prop, None), property)
+        }
+
     @property
     def wkn(self) -> int:
         return self._wkn

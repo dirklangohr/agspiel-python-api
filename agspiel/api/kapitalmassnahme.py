@@ -10,6 +10,16 @@ class _Kapitalmassnahme:
         self._kurs: float = kurs
         self._summe: float = summe
 
+    def to_dict(self) -> dict:
+        """
+        Returns a dict of all properties to dump self as json
+        """
+        return {
+            prop: getattr(self, prop)
+            for prop in dir(self)
+            if isinstance(getattr(type(self), prop, None), property)
+        }
+
     @property
     def datum(self) -> date:
         return self._datum

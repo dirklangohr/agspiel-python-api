@@ -11,6 +11,16 @@ class Index:
         self._punkte: int = punkte
         self._gruendung_datum: datetime = gruendung_datum
 
+    def to_dict(self) -> dict:
+        """
+        Returns a dict of all properties to dump self as json
+        """
+        return {
+            prop: getattr(self, prop)
+            for prop in dir(self)
+            if isinstance(getattr(type(self), prop, None), property)
+        }
+
     @property
     def id(self) -> int:
         return self._id
